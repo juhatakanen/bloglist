@@ -1,21 +1,16 @@
-const dummy = blogs => {
-    return 1
-}
+const dummy = blogs => 1
 
-const totalLikes = blogs => {
-    const arrayOFLikes = blogs.map(blog => blog.likes)
-    const totalLikes =  arrayOFLikes.reduce((previousValue, currentValue) => previousValue + currentValue, 0)
-    return totalLikes
-}
+const totalLikes = blogs => blogs.reduce((total, blog) => total + blog.likes, 0)
 
 const favouriteBlog = blogs => {
-    const arrayOFLikes = blogs.map(blog => blog.likes)
-    const biggestLikeValue = Math.max(...arrayOFLikes)
-    const blogsWithBiggestLikeValue = blogs.filter(blog => blog.likes === biggestLikeValue)
+    const favouriteBlogWholeObject = blogs.reduce((prev, current) => {
+        return current.likes > prev.likes ? current : prev
+    }, blogs[0]);
+
     return {
-        "author": blogsWithBiggestLikeValue[0].author,
-        "likes": blogsWithBiggestLikeValue[0].likes,
-        "title": blogsWithBiggestLikeValue[0].title
+        "title": favouriteBlogWholeObject.title,
+        "author": favouriteBlogWholeObject.author,
+        "likes": favouriteBlogWholeObject.likes
     } 
 }
 
